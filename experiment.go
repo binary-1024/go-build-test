@@ -1,4 +1,6 @@
 
+package main
+
 // NewFeature 新功能演示
 func NewFeature() string {
     return "This is a new feature added after v1.0.0"
