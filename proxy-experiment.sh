@@ -567,6 +567,68 @@ cleanup_experiment() {
     log_success "清理完成"
 }
 
+# 查看所有伪版本
+show_all_pseudo_versions() {
+    local repo_url=$1
+    log_step "查看所有收录的伪版本"
+
+    if [ -f ".experiment_vars" ]; then
+        source .experiment_vars
+    fi
+
+    log_info "检查已知commit的伪版本..."
+
+    # 检查初始commit（如果存在）
+    if [ -n "$INITIAL_COMMIT" ]; then
+        echo ""
+        echo "=== 初始commit $INITIAL_COMMIT 的伪版本 ==="
+        curl -s "https://proxy.golang.org/$repo_url/@v/$INITIAL_COMMIT.info" | jq . 2>/dev/null || \
+        curl -s "https://proxy.golang.org/$repo_url/@v/$INITIAL_COMMIT.info"
+    fi
+
+    # 检查新commit（如果存在）
+    if [ -n "$NEW_COMMIT" ]; then
+        echo ""
+        echo "=== 新commit $NEW_COMMIT 的伪版本 ==="
+        curl -s "https://proxy.golang.org/$repo_url/@v/$NEW_COMMIT.info" | jq . 2>/dev/null || \
+        curl -s "https://proxy.golang.org/$repo_url/@v/$NEW_COMMIT.info"
+    fi
+
+    # 检查main分支
+    echo ""
+    echo "=== main分支的当前版本 ==="
+    curl -s "https://proxy.golang.org/$repo_url/@v/main.info" | jq . 2>/dev/null || \
+    curl -s "https://proxy.golang.org/$repo_url/@v/main.info"
+
+    # 检查latest
+    echo ""
+    echo "=== 最新版本 ==="
+    curl -s "https://proxy.golang.org/$repo_url/@latest" | jq . 2>/dev/null || \
+    curl -s "https://proxy.golang.org/$repo_url/@latest"
+
+    # 检查版本列表
+    echo ""
+    echo "=== 所有收录的版本列表 ==="
+    versions=$(curl -s "https://proxy.golang.org/$repo_url/@v/list" 2>/dev/null || echo "")
+    if [ -n "$versions" ]; then
+        echo "$versions" | sort
+    else
+        echo "未获取到版本列表"
+    fi
+
+    echo ""
+    log_info "手动检查命令:"
+    echo "curl \"https://proxy.golang.org/$repo_url/@v/list\""
+    echo "curl \"https://proxy.golang.org/$repo_url/@latest\""
+    echo "curl \"https://proxy.golang.org/$repo_url/@v/main.info\""
+    if [ -n "$INITIAL_COMMIT" ]; then
+        echo "curl \"https://proxy.golang.org/$repo_url/@v/$INITIAL_COMMIT.info\""
+    fi
+    if [ -n "$NEW_COMMIT" ]; then
+        echo "curl \"https://proxy.golang.org/$repo_url/@v/$NEW_COMMIT.info\""
+    fi
+}
+
 # 显示帮助信息
 show_help() {
     echo "Go Proxy 收录实验脚本"
@@ -582,6 +644,7 @@ show_help() {
     echo "  analyze           - 分析实验结果"
     echo "  full              - 执行完整实验流程"
     echo "  check [version]   - 检查收录状态"
+    echo "  check_all         - 查看所有收录的伪版本"
     echo "  trigger <version> - 触发收录"
     echo "  cleanup           - 清理实验环境"
     echo "  help              - 显示帮助信息"
@@ -637,6 +700,9 @@ main() {
             sleep 5
             analyze_results
             ;;
+        "check_all")
+            show_all_pseudo_versions "$REPO_URL"
+            ;;
         "check")
             check_proxy_status "$REPO_URL" "$2"
             ;;
@@ -687,3 +753,65 @@ fi
 
 check_dependencies
 main "$@"
+
+# 查看所有伪版本的函数
+show_all_pseudo_versions() {
+    local repo_url=$1
+    log_step "查看所有收录的伪版本"
+
+    if [ -f ".experiment_vars" ]; then
+        source .experiment_vars
+    fi
+
+    log_info "检查已知commit的伪版本..."
+
+    # 检查初始commit（如果存在）
+    if [ -n "$INITIAL_COMMIT" ]; then
+        echo ""
+        echo "=== 初始commit $INITIAL_COMMIT 的伪版本 ==="
+        curl -s "https://proxy.golang.org/$repo_url/@v/$INITIAL_COMMIT.info" | jq . 2>/dev/null || \
+        curl -s "https://proxy.golang.org/$repo_url/@v/$INITIAL_COMMIT.info"
+    fi
+
+    # 检查新commit（如果存在）
+    if [ -n "$NEW_COMMIT" ]; then
+        echo ""
+        echo "=== 新commit $NEW_COMMIT 的伪版本 ==="
+        curl -s "https://proxy.golang.org/$repo_url/@v/$NEW_COMMIT.info" | jq . 2>/dev/null || \
+        curl -s "https://proxy.golang.org/$repo_url/@v/$NEW_COMMIT.info"
+    fi
+
+    # 检查main分支
+    echo ""
+    echo "=== main分支的当前版本 ==="
+    curl -s "https://proxy.golang.org/$repo_url/@v/main.info" | jq . 2>/dev/null || \
+    curl -s "https://proxy.golang.org/$repo_url/@v/main.info"
+
+    # 检查latest
+    echo ""
+    echo "=== 最新版本 ==="
+    curl -s "https://proxy.golang.org/$repo_url/@latest" | jq . 2>/dev/null || \
+    curl -s "https://proxy.golang.org/$repo_url/@latest"
+
+    # 检查版本列表
+    echo ""
+    echo "=== 所有收录的版本列表 ==="
+    versions=$(curl -s "https://proxy.golang.org/$repo_url/@v/list" 2>/dev/null || echo "")
+    if [ -n "$versions" ]; then
+        echo "$versions" | sort
+    else
+        echo "未获取到版本列表"
+    fi
+
+    echo ""
+    log_info "手动检查命令:"
+    echo "curl \"https://proxy.golang.org/$repo_url/@v/list\""
+    echo "curl \"https://proxy.golang.org/$repo_url/@latest\""
+    echo "curl \"https://proxy.golang.org/$repo_url/@v/main.info\""
+    if [ -n "$INITIAL_COMMIT" ]; then
+        echo "curl \"https://proxy.golang.org/$repo_url/@v/$INITIAL_COMMIT.info\""
+    fi
+    if [ -n "$NEW_COMMIT" ]; then
+        echo "curl \"https://proxy.golang.org/$repo_url/@v/$NEW_COMMIT.info\""
+    fi
+}
