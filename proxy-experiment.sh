@@ -315,17 +315,17 @@ experiment_stage1() {
 experiment_stage2() {
     log_step "阶段2: 创建v1.0.0标签"
 
-    if [ ! -d "$REPO_NAME" ]; then
-        log_error "实验目录 $REPO_NAME 不存在，请先运行: $0 init"
-        return 1
-    fi
+    # if [ ! -d "$REPO_NAME" ]; then
+    #     log_error "实验目录 $REPO_NAME 不存在，请先运行: $0 init"
+    #     return 1
+    # fi
 
-    cd "$REPO_NAME"
+    # cd "$REPO_NAME"
 
-    if [ ! -f ".experiment_vars" ]; then
-        log_error "实验配置文件 .experiment_vars 不存在，请先运行: $0 init"
-        return 1
-    fi
+    # if [ ! -f ".experiment_vars" ]; then
+    #     log_error "实验配置文件 .experiment_vars 不存在，请先运行: $0 init"
+    #     return 1
+    # fi
 
     source .experiment_vars
 
@@ -442,17 +442,17 @@ Features added:
 experiment_stage4() {
     log_step "阶段4: 为同一commit创建v1.0.1标签"
 
-    if [ ! -d "$REPO_NAME" ]; then
-        log_error "实验目录 $REPO_NAME 不存在，请先运行: $0 init"
-        return 1
-    fi
+    # if [ ! -d "$REPO_NAME" ]; then
+    #     log_error "实验目录 $REPO_NAME 不存在，请先运行: $0 init"
+    #     return 1
+    # fi
 
-    cd "$REPO_NAME"
+    # cd "$REPO_NAME"
 
-    if [ ! -f ".experiment_vars" ]; then
-        log_error "实验配置文件 .experiment_vars 不存在，请先运行: $0 init"
-        return 1
-    fi
+    # if [ ! -f ".experiment_vars" ]; then
+    #     log_error "实验配置文件 .experiment_vars 不存在，请先运行: $0 init"
+    #     return 1
+    # fi
 
     source .experiment_vars
 
@@ -498,17 +498,17 @@ experiment_stage4() {
 analyze_results() {
     log_step "分析实验结果"
 
-    if [ ! -d "$REPO_NAME" ]; then
-        log_error "实验目录 $REPO_NAME 不存在，请先运行: $0 init"
-        return 1
-    fi
+    # if [ ! -d "$REPO_NAME" ]; then
+    #     log_error "实验目录 $REPO_NAME 不存在，请先运行: $0 init"
+    #     return 1
+    # fi
 
-    cd "$REPO_NAME"
+    # cd "$REPO_NAME"
 
-    if [ ! -f ".experiment_vars" ]; then
-        log_error "实验配置文件 .experiment_vars 不存在，请先运行: $0 init"
-        return 1
-    fi
+    # if [ ! -f ".experiment_vars" ]; then
+    #     log_error "实验配置文件 .experiment_vars 不存在，请先运行: $0 init"
+    #     return 1
+    # fi
 
     source .experiment_vars
 
