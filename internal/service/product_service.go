@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	"microservice/internal/cache"
-	"microservice/internal/logger"
-	"microservice/internal/models"
-	"microservice/internal/repository"
+	"github.com/binary-1024/go-build-test/internal/cache"
+	"github.com/binary-1024/go-build-test/internal/logger"
+	"github.com/binary-1024/go-build-test/internal/models"
+	"github.com/binary-1024/go-build-test/internal/repository"
 )
 
 // ProductService 产品服务接口

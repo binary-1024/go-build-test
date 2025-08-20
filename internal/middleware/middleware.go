@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"microservice/internal/auth"
-	"microservice/internal/logger"
+	"github.com/binary-1024/go-build-test/internal/auth"
+	"github.com/binary-1024/go-build-test/internal/logger"
 
 	"github.com/gin-gonic/gin"
 )

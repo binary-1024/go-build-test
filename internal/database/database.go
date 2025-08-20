@@ -1,7 +1,7 @@
 package database
 
 import (
-	"microservice/internal/models"
+	"github.com/binary-1024/go-build-test/internal/models"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

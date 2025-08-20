@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"microservice/internal/auth"
-	"microservice/internal/logger"
-	"microservice/internal/middleware"
-	"microservice/internal/models"
-	"microservice/internal/service"
+	"github.com/binary-1024/go-build-test/internal/auth"
+	"github.com/binary-1024/go-build-test/internal/logger"
+	"github.com/binary-1024/go-build-test/internal/middleware"
+	"github.com/binary-1024/go-build-test/internal/models"
+	"github.com/binary-1024/go-build-test/internal/service"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,4 +1,4 @@
-module microservice
+module github.com/binary-1024/go-build-test
 
 go 1.21
 
