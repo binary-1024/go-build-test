@@ -1,4 +1,4 @@
-module github.com/binary-1024/go-build-test/v2
+module github.com/binary-1024/go-build-test
 
 go 1.21
 
